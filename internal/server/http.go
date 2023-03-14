@@ -8,6 +8,7 @@ import (
 	"github.com/liangtengfei/beer-admin/api/router"
 	_ "github.com/liangtengfei/beer-admin/docs"
 	"github.com/liangtengfei/beer-admin/internal/conf"
+	"github.com/liangtengfei/beer-admin/pkg/middleware"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
@@ -21,6 +22,9 @@ func NewHTTPServer(
 	ua *api.SysUserAPI,
 ) *HTTPServer {
 	r := gin.Default()
+
+	// 中间件
+	r.Use(middleware.Cors())
 
 	r.GET("/", func(ctx *gin.Context) {
 		ctx.JSON(http.StatusOK, gin.H{
