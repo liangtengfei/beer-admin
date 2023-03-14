@@ -1,0 +1,53 @@
+# 开发环境docker一键部署
+version: "3.9"
+
+networks:
+  dev_net:
+    driver: bridge
+
+# privileged: 使用该参数，container内的root拥有真正的root权限。
+services:
+  Etcd:
+    image: 'bitnami/etcd:latest'
+    container_name: etcd-dev
+    privileged: true
+    restart: on-failure
+    environment:
+      - ALLOW_NONE_AUTHENTICATION=yes
+      - ETCD_ADVERTISE_CLIENT_URLS=http://etcd:2379
+    ports:
+      - "2379:2379"
+      - "2380:2380"
+    networks:
+      - dev_net
+  postgres:
+    image: postgres:latest
+    container_name: postgres-dev
+    privileged: true
+    restart: on-failure
+    ports:
+      - "55432:5432"
+    environment:
+      TZ: Asia/Shanghai
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+      POSTGRES_PASSWORD: beeeeer2023.
+      POSTGRES_HOST_AUTH_METHOD: password
+      LANG: en_US.utf8
+    volumes:
+      - ./deploy/data/postgres/data:/var/lib/postgresql/data
+    networks:
+      - dev_net
+  redis:
+    image: redis:latest
+    container_name: redis-dev
+    privileged: true
+    restart: on-failure
+    volumes:
+      - ./deploy/data/redis/data:/data:rw
+    command: "redis-server --requirepass WGlhb2h1b3poaTIwM3j2I0u2  --appendonly yes"
+    ports:
+      - "56379:6379"
+    networks:
+      - dev_net
+  

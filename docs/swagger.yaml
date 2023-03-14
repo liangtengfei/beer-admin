@@ -1,0 +1,109 @@
+basePath: /api/sys
+definitions:
+  api.RestRes:
+    properties:
+      code:
+        example: 200
+        type: integer
+      data: {}
+      msg:
+        example: status ok
+        type: string
+      type:
+        example: success
+        type: string
+    type: object
+  github_com_liangtengfei_beer-admin_api_model.SysUserInfo:
+    properties:
+      avatar:
+        description: 头像地址
+        type: string
+      createdAt:
+        description: 创建时间
+        type: string
+      createdBy:
+        description: 创建人员
+        type: string
+      deptID:
+        description: 部门编号
+        type: integer
+      email:
+        description: 邮箱地址
+        type: string
+      mobile:
+        description: 手机号码
+        type: string
+      postIds:
+        items:
+          type: integer
+        type: array
+      realName:
+        description: 真实姓名
+        type: string
+      remark:
+        description: 备注
+        type: string
+      roleIds:
+        items:
+          type: integer
+        type: array
+      sex:
+        description: 性别
+        type: string
+      status:
+        description: '状态: 0=ON 1=OFF'
+        type: string
+      updatedAt:
+        description: 更新时间
+        type: string
+      updatedBy:
+        description: 更新人员
+        type: string
+      userID:
+        description: 系统用户
+        type: integer
+      userName:
+        description: 登陆用户名称
+        type: string
+    type: object
+host: localhost:8000
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: BeerAdmin巡防管理系统-基础管理服务
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: BeerAdmin巡防管理系统
+  version: 1.0.0
+paths:
+  /user/{id}:
+    get:
+      consumes:
+      - application/json
+      description: 用户详情 by ID
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.RestRes'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_liangtengfei_beer-admin_api_model.SysUserInfo'
+              type: object
+      summary: 用户详情
+      tags:
+      - '用户: SysUser'
+securityDefinitions:
+  ApiKeyAuth:
+    description: OAuth protects our entity endpoints
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

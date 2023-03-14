@@ -1,0 +1,39 @@
+server:
+  http:
+    addr: 0.0.0.0:8000
+    timeout: 1s
+    static_prefix: /static
+    static_root: ../upload
+  grpc:
+    addr: 0.0.0.0:9000
+    timeout: 1s
+  auth:
+    symmetric_key: "生成JWT的私钥"
+    access_token_duration: 1440m
+    refresh_token_duration: 10080m
+  casbin:
+    model_path: rbac_model.conf
+    policy_path: rbac_policy.csv
+data:
+  database:
+    driver: pgx
+    source: postgres://postgres:beeeeer2023.@localhost:5432/postgres?sslmode=disable
+  redis:
+    addr: 127.0.0.1:6379
+    password: WGlhb2h1b3poaTIwM3j2I0u2
+    read_timeout: 0.2s
+    write_timeout: 0.2s
+    dial_timeout: 3s
+app:
+  name: BEER管理系统
+  version: v1.0.0
+  mode: dev
+# 为了尽量少的注入配置 定时任务的配置 放在了APP下
+  task:
+    rate_default: 10
+    rate_most: 30
+consul:
+  address: 127.0.0.1:8500
+  scheme: http
+
+#--redis-url=redis://:WGlhb2h1b3poaTIwMjIu@127.0.0.1:56379/0
