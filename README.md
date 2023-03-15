@@ -35,3 +35,8 @@ application
   API，性能要好得多，多亏了 [httprouter](https://github.com/julienschmidt/httprouter)，速度提高了 40 倍。
 4. `Asynq` [Asynq](https://github.com/hibiken/asynq) Asynq 是一个 Go 库，用于排队任务并与 worker 异步处理它们。它由 Redis
   提供支持，旨在实现可扩展且易于上手。
+
+## 运行方法
+
+1. 安装docker，并运行`deploy`中的数据库部署文件
+2. 执行`make serv`以启动服务
